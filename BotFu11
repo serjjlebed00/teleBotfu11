@@ -1,0 +1,34 @@
+import time
+ 
+import telebot
+from telebot import types
+ 
+TOKEN = '869815471:AAFvsbu8XR1z3-vk-x464iagLx508epvoAI'
+ 
+
+def get_user_step(uid):
+    if uid in userStep:
+        return userStep[uid]
+    else:
+        knownUsers.append(uid)
+        userStep[uid] = 0
+        print("New user detected, who hasn't used \"/start\" yet")
+        return 0
+ 
+ 
+# only used for console output now
+def listener(messages):
+    """
+    When new messages arrive TeleBot will call this function.
+    """
+    for m in messages:
+        if m.content_type == 'text':
+            # print the sent message to the console
+            print(str(m.chat.first_name) + " [" + str(m.chat.id) + "]: " + m.text)
+ 
+ 
+bot = telebot.TeleBot(TOKEN)
+bot.set_update_listener(listener)  # register listener
+ 
+  
+bot.polling()
